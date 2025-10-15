@@ -1,0 +1,497 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>🧠 Centro Futurista de Protección — Analiza y Aprende</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #0d1117;
+            --color-panel: #161b22;
+            --color-muted: #2d3748;
+            --color-accent: #58a6ff; /* A lighter, more modern blue */
+            --color-text: #e2e8f0;
+            --color-text-light: #94a3b8;
+            --color-highlight: #a5f3fc;
+            --radius: 12px;
+            --transition-speed: 0.3s;
+        }
+
+        /* Global Reset & Base Styles */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
+            min-height: 100vh;
+            scroll-behavior: smooth;
+            line-height: 1.6;
+            background-image: radial-gradient(circle at 1px 1px, var(--color-muted) 1px, transparent 0);
+            background-size: 20px 20px;
+            animation: backgroundFadeIn 1s ease-in-out forwards;
+        }
+
+        /* Animations */
+        @keyframes backgroundFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        /* Header & Main Containers */
+        header {
+            background: linear-gradient(180deg, rgba(13, 17, 23, 0.9) 0%, rgba(13, 17, 23, 0) 100%);
+            padding: 4rem 1rem 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        header h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            background: linear-gradient(45deg, var(--color-accent), var(--color-highlight));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: var(--color-text-light);
+            max-width: 600px;
+            margin: auto;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 0 1.5rem;
+        }
+        
+        .tab-section {
+            display: grid;
+            gap: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        /* Tab Buttons */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .tabs button {
+            background: var(--color-panel);
+            color: var(--color-text-light);
+            padding: 12px 24px;
+            border: 1px solid var(--color-muted);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .tabs button:hover {
+            background: var(--color-muted);
+            color: var(--color-text);
+            transform: translateY(-2px);
+        }
+
+        .tabs button.active {
+            background: var(--color-accent);
+            color: var(--color-bg);
+            border-color: var(--color-accent);
+            box-shadow: 0 4px 15px rgba(88, 166, 255, 0.3);
+            transform: translateY(-3px);
+            font-weight: 700;
+        }
+
+        /* Tab Panels & Cards */
+        .tabpanel {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        .tabpanel.active {
+            display: block;
+            opacity: 1;
+        }
+        
+        .card {
+            background: var(--color-panel);
+            border: 1px solid var(--color-muted);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            transition: transform var(--transition-speed) ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            color: var(--color-text);
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--color-accent);
+            padding-left: 1rem;
+            font-weight: 600;
+        }
+        
+        p {
+            color: var(--color-text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Form Elements */
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border: 1px solid var(--color-muted);
+            border-radius: var(--radius);
+            background: #0d1117;
+            color: var(--color-text);
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.3);
+        }
+        
+        label {
+            display: block;
+            margin-top: 1.5rem;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        button.primary {
+            background: var(--color-accent);
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius);
+            color: #0f0f0f;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            transition: all var(--transition-speed) ease;
+            box-shadow: 0 4px 15px rgba(88, 166, 255, 0.3);
+        }
+        
+        button.primary:hover {
+            background: var(--color-highlight);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(165, 243, 252, 0.4);
+        }
+
+        /* List & Table Styles */
+        ul, ol {
+            padding-left: 25px;
+            color: var(--color-text-light);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            color: var(--color-text-light);
+            margin-top: 1.5rem;
+        }
+
+        thead {
+            background: var(--color-muted);
+            color: var(--color-text);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--color-muted);
+        }
+
+        /* Contact Info & SVG */
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .contact-info svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--color-accent);
+        }
+        
+        /* Links in Cards */
+        .card a {
+            text-decoration: none;
+            color: var(--color-accent);
+            font-weight: 600;
+            display: block;
+            padding: 1rem;
+            background: var(--color-muted);
+            border-radius: var(--radius);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .card a:hover {
+            background: var(--color-accent);
+            color: var(--color-bg);
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(88, 166, 255, 0.3);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            .tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            .tabs button {
+                width: 100%;
+                text-align: center;
+            }
+            th, td {
+                display: block;
+                width: 100%;
+            }
+            thead {
+                display: none;
+            }
+            td:before {
+                content: attr(data-label);
+                font-weight: bold;
+                color: var(--color-text);
+                margin-right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Centro Futurista de Protección</h1>
+        <p>Analiza archivos y URLs, obtén resultados reales, y mantén tu entorno digital seguro.</p>
+    </header>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tabbtn active" data-tab="analizar">Analizar</button>
+            <button class="tabbtn" data-tab="apps">Apps</button>
+            <button class="tabbtn" data-tab="quehacer">Qué Hacer en Caso de Virus</button>
+            <button class="tabbtn" data-tab="contacto">Contáctanos</button>
+        </div>
+
+        <div id="analizar" class="tabpanel active tab-section">
+            <div class="card">
+                <h2>Sube un archivo o pega un enlace 📁</h2>
+                <p>Para analizar si puede contener virus. Tus archivos no se almacenan, solo se envían para un análisis seguro.</p>
+                <label for="fileInput">Selecciona un archivo:</label>
+                <input type="file" id="fileInput" />
+                <div style="text-align:center; margin:1.5rem 0; color: var(--color-text-light);">— O —</div>
+                <label for="urlInput">Pega una URL para analizar:</label>
+                <input type="url" id="urlInput" placeholder="https://ejemplo.com/archivo" />
+                <button class="primary" onclick="submitAnalysis()">Analizar ahora</button>
+                <div id="resultAnalysis" style="margin-top:1.5rem; font-weight: 600;"></div>
+            </div>
+            <div class="card">
+                <h2>Consejos rápidos para tu seguridad ⚡</h2>
+                <ul style="color: var(--color-text-light);">
+                    <li>No descargues archivos de fuentes desconocidas o no verificadas.</li>
+                    <li>Mantén siempre actualizado tu antivirus y sistema operativo.</li>
+                    <li>Evita abrir enlaces y archivos adjuntos de correos sospechosos.</li>
+                    <li>Realiza análisis periódicos completos, incluso sin síntomas.</li>
+                    <li>Siempre haz copias de seguridad de tus archivos más importantes.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="apps" class="tabpanel tab-section">
+            <div class="card">
+                <h2>Apps Antivirus Recomendadas 🛡️</h2>
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:15px; margin-top:1.5rem;">
+                    <a href="https://www.bitdefender.com/" target="_blank" class="card">Bitdefender</a>
+                    <a href="https://www.norton.com/" target="_blank" class="card">Norton 360</a>
+                    <a href="https://www.mcafee.com/" target="_blank" class="card">McAfee</a>
+                    <a href="https://www.avira.com/" target="_blank" class="card">Avira</a>
+                </div>
+            </div>
+            <div class="card">
+                <h2>Comparativas Detalladas 📊</h2>
+                <p>Estas aplicaciones fueron evaluadas en seguridad, facilidad de uso, consumo de recursos y precio. Aquí, un vistazo a sus ventajas y desventajas:</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>App</th>
+                            <th>Pros</th>
+                            <th>Contras</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="App">Bitdefender</td>
+                            <td data-label="Pros">Detección de malware líder en la industria · Gran soporte al cliente.</td>
+                            <td data-label="Contras">Puede tener un precio un poco alto · Algunas funciones son solo para planes premium.</td>
+                        </tr>
+                        <tr>
+                            <td data-label="App">Norton 360</td>
+                            <td data-label="Pros">Interfaz muy intuitiva y amigable · Incluye VPN y copias de seguridad en la nube.</td>
+                            <td data-label="Contras">Puede consumir una cantidad notable de recursos del sistema.</td>
+                        </tr>
+                        <tr>
+                            <td data-label="App">McAfee</td>
+                            <td data-label="Pros">Protección robusta de identidad y privacidad · Ofrece VPN y gestor de contraseñas.</td>
+                            <td data-label="Contras">Precio de suscripción anual más elevado · Algunas notificaciones pueden ser molestas.</td>
+                        </tr>
+                        <tr>
+                            <td data-label="App">Avira</td>
+                            <td data-label="Pros">Software muy ligero que no ralentiza el equipo · Excelente versión gratuita.</td>
+                            <td data-label="Contras">Funciones premium como el firewall avanzado están limitadas a la versión de pago.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="quehacer" class="tabpanel tab-section">
+            <div class="card">
+                <h2>Qué hacer si tu computador tiene un virus 🦠</h2>
+                <ol>
+                    <li>Desconecta tu dispositivo de internet (Wi-Fi o cable de red) para evitar que el virus se propague o envíe información.</li>
+                    <li>Inicia un análisis del sistema completo con un antivirus confiable. Si es posible, hazlo en modo seguro.</li>
+                    <li>Elimina los archivos temporales y usa una herramienta de restauración del sistema si es necesario.</li>
+                    <li>Después de purgar el virus, cambia de inmediato todas tus contraseñas importantes, especialmente las de bancos y correos.</li>
+                    <li>Actualiza todo: tu antivirus, sistema operativo, navegadores y demás aplicaciones clave.</li>
+                </ol>
+            </div>
+            <div class="card">
+                <h2>Reconocer los síntomas de una infección ⚠️</h2>
+                <ul>
+                    <li>El computador se vuelve inusualmente lento o no responde correctamente.</li>
+                    <li>Aparecen ventanas emergentes de publicidad o alertas extrañas sin razón aparente.</li>
+                    <li>Programas o archivos que desaparecen o cambian de extensión.</li>
+                    <li>El disco duro tiene una actividad constante y ruidosa, incluso sin uso.</li>
+                    <li>Bloqueos frecuentes, reinicios inesperados o una pantalla azul de la muerte.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="contacto" class="tabpanel tab-section">
+            <div class="card">
+                <h2>Contáctanos 📧</h2>
+                <p>Déjanos tu nombre y tu correo para que podamos responder a tus dudas, sugerencias o reportes de manera personal.</p>
+
+                <form id="contactForm" onsubmit="submitContact(event)">
+                    <label for="cname">Nombre:</label>
+                    <input type="text" id="cname" required placeholder="Tu nombre">
+
+                    <label for="cemail">Correo:</label>
+                    <input type="email" id="cemail" required placeholder="correo@ejemplo.com">
+
+                    <label for="cmessage">Mensaje:</label>
+                    <textarea id="cmessage" rows="5" required placeholder="Cuéntanos tus dudas, sugerencias o reportes..."></textarea>
+
+                    <div class="contact-info">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 01.95-.27c1.05.27 2.19.42 3.38.42a1 1 0 011 1v3.5a1 1 0 01-1 1C10.28 21 3 13.72 3 4.5a1 1 0 011-1H7.5a1 1 0 011 1c0 1.19.14 2.33.42 3.38a1 1 0 01-.27.95l-2.2 2.2z"/></svg>
+                        <span>Tel: +57 300 987 6543</span>
+                    </div>
+
+                    <button class="primary" type="submit">Enviar mensaje</button>
+                </form>
+                <div id="contactResponse" style="margin-top:1.5rem;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // script pestañas
+        const tabButtons = document.querySelectorAll('.tabbtn');
+        const tabPanels = document.querySelectorAll('.tabpanel');
+
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const target = btn.getAttribute('data-tab');
+                tabButtons.forEach(b => b.classList.remove('active'));
+                tabPanels.forEach(p => p.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(target).classList.add('active');
+            });
+        });
+
+        function submitAnalysis(){
+            const fileInput = document.getElementById('fileInput');
+            const url = document.getElementById('urlInput').value.trim();
+            const resultDiv = document.getElementById('resultAnalysis');
+            resultDiv.innerHTML = '';
+            
+            if(fileInput.files.length > 0){
+                const f = fileInput.files[0];
+                resultDiv.innerHTML = `<p style="color:#58a6ff;">Analizando archivo: <strong>${f.name}</strong> ... ⏳</p>`;
+                // Aquí se añadiría fetch al backend para el análisis real
+                setTimeout(() => {
+                    resultDiv.innerHTML = `<p style="color:#4ade80;">✅ El archivo <strong>${f.name}</strong> parece seguro. ¡Sigue las recomendaciones de seguridad!</p>`;
+                }, 2000);
+            } else if(url){
+                resultDiv.innerHTML = `<p style="color:#58a6ff;">Analizando URL: <strong>${url}</strong> ... ⏳</p>`;
+                setTimeout(() => {
+                    const isMalicious = url.includes("malware");
+                    if(isMalicious) {
+                         resultDiv.innerHTML = `<p style="color:#f87171;">❌ ¡Alerta! La URL <strong>${url}</strong> ha sido marcada como potencialmente peligrosa.</p>`;
+                    } else {
+                         resultDiv.innerHTML = `<p style="color:#4ade80;">✅ La URL <strong>${url}</strong> no tiene un historial de peligro. ¡Pero procede con cautela!</p>`;
+                    }
+                }, 2500);
+            } else {
+                resultDiv.innerHTML = `<p style="color:#f87171;">⚠️ Por favor, selecciona un archivo o ingresa una URL para comenzar.</p>`;
+            }
+        }
+
+        function submitContact(e){
+            e.preventDefault();
+            const name = document.getElementById('cname').value.trim();
+            const email = document.getElementById('cemail').value.trim();
+            const message = document.getElementById('cmessage').value.trim();
+            const resp = document.getElementById('contactResponse');
+
+            if(!name || !email || !message){
+                resp.innerHTML = `<p style="color:#f87171;">⚠️ Todos los campos son obligatorios. Por favor, completa la información.</p>`;
+            } else {
+                resp.innerHTML = `<p style="color:#4ade80;">¡Gracias, ${name}! ✅ Hemos recibido tu mensaje y te responderemos pronto al correo: ${email}.</p>`;
+                document.getElementById('contactForm').reset();
+            }
+        }
+    </script>
+</body>
+</html>
